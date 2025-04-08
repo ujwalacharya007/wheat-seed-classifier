@@ -5,23 +5,22 @@ import numpy as np
 # Load the trained model
 model = joblib.load("wheat_seed_classifier_model.pkl")
 
-# Label mapping
+# Function to map class label to wheat variety name
 def get_variety_name(class_label):
     label_mapping = {
-       1: "Kama",
+        1: "Kama",
         2: "Rosa",
         3: "Canadian",
         4: "Nl 297",
         5: "Vijay"
     }
-
     return label_mapping.get(class_label, "Unknown")
 
-# Streamlit UI
+# Streamlit App Title
 st.title("🌾 Wheat Seed Variety Classifier")
 st.write("Enter the features of the wheat seed below:")
 
-# Input fields
+# Input fields for all features
 area = st.number_input("Area", min_value=0.0)
 perimeter = st.number_input("Perimeter", min_value=0.0)
 compactness = st.number_input("Compactness", min_value=0.0)
@@ -36,7 +35,3 @@ if st.button("Predict Variety"):
     prediction = model.predict(input_data)[0]
     variety = get_variety_name(prediction)
     st.success(f"🌟 Predicted Variety: **{variety}**")
-'''
-
-with open("wheat_seed_app.py", "w") as f:
-    f.write(code)
